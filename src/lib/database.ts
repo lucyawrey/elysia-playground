@@ -7,7 +7,7 @@ const sqlite = new Database("db.sqlite");
 interface ContentTable {
   id: string;
   name: string;
-  data: object;
+  data: string;
 }
 
 interface Schema {
