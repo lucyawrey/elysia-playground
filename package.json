@@ -1,5 +1,5 @@
 {
-  "name": "elysia",
+  "name": "elysia-playground",
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,6 +12,7 @@
     "migrate:down": "bun run --env-file=.env.development src/scripts/runMigrations.ts --down"
   },
   "dependencies": {
+    "@elysiajs/eden": "^1.0.11",
     "@elysiajs/swagger": "^1.0.3",
     "elysia": "latest",
     "kysely": "^0.27.3",

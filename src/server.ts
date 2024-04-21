@@ -19,19 +19,23 @@ const app = new Elysia()
     ({ body }) => {
       return database
         .insertInto("content")
-        .values({ id: body.id ?? crypto.randomUUID(), name: body.name, data: JSON.stringify(body.data) })
+        .values({
+          id: body.id ?? crypto.randomUUID(),
+          name: body.name,
+          data: JSON.stringify(body.data),
+        })
         .returningAll()
         .executeTakeFirst();
     },
     {
       body: t.Object({
-        id: t.Optional(t.String({ format: 'uuid' })),
+        id: t.Optional(t.String({ format: "uuid" })),
         name: t.String(),
         data: t.Record(t.String(), t.String()),
       }),
     }
   )
-  .listen(3000);
+  .listen(3001);
 
 export type App = typeof app;
 
