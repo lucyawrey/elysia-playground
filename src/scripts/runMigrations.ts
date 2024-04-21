@@ -1,25 +1,16 @@
 import * as path from "path";
 import { promises as fs } from "fs";
-import { Migrator, FileMigrationProvider, Kysely } from "kysely";
+import { Migrator, FileMigrationProvider } from "kysely";
+import { database } from "../lib/database";
 
 /**
  * Migration script function. It runs through ts-node via the npm script `migrate`.
  * The purpose of this script is to run all Kysely migrations in the migrations folder.
  * It is needed because Kysely, by design, has no migration CLI.
  */
-export async function runMigrations(migrationArg: string) {
-  const database = new Kysely<Schema>({
-    dialect: new BunSqliteDialect({ database: sqlite }),
-  });
-  const run = process.env.RUN_MIGRATIONS === "true";
-  const url = process.env.DATABASE_URL || undefined;
-
-  if (run === false || url === undefined) {
+async function runMigrations(migrationArg: string) {
+  if (process.env.RUN_MIGRATIONS !== "true") {
     console.log("RUN_MIGRATIONS environment variable is not set to true, skipping migrations.");
-    process.exit(0);
-  }
-  if (url === undefined) {
-    console.log("DATABASE_URL environment variable is not defined, skipping migrations.");
     process.exit(0);
   }
 
@@ -70,3 +61,7 @@ export async function runMigrations(migrationArg: string) {
     console.log("No migrations ran because the database is already up to date.");
   }
 }
+
+const [, , migrationArg] = process.argv;
+
+runMigrations(migrationArg);

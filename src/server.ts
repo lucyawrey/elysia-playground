@@ -1,24 +1,5 @@
 import { Elysia, t } from "elysia";
 import { swagger } from "@elysiajs/swagger";
-import { Database } from "bun:sqlite";
-import { Kysely, SqliteDialect } from "kysely";
-import { BunSqliteDialect } from "kysely-bun-sqlite";
-
-const sqlite = new Database("db.sqlite");
-
-interface ContentTable {
-  id: string;
-  name: string;
-  data: object;
-}
-
-interface Schema {
-  content: ContentTable;
-}
-
-const database = new Kysely<Schema>({
-  dialect: new BunSqliteDialect({ database: sqlite }),
-});
 
 const app = new Elysia()
   .get('/', ({ set }) => {
