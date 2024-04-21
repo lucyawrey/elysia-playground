@@ -3,11 +3,16 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts",
-    "prettier": "prettier . --write"
+    "dev": "bun run --watch src/server.ts",
+    "dev:client": "bun run src/client.ts",
+    "prettier": "prettier . --write",
+    "migrate:new": "tsx src/scripts/newMigration.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/swagger": "^1.0.3",
+    "elysia": "latest",
+    "kysely": "^0.27.3",
+    "kysely-bun-sqlite": "^0.3.2"
   },
   "devDependencies": {
     "bun-types": "latest",
